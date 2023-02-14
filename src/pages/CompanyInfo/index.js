@@ -63,30 +63,26 @@ function CompanyInfo() {
       errors.license_date = required;
     }
 
-    let translationErrors = [];
-    values.translation.forEach((trans) => {
-      const transErrors = {};
-      if (!trans.name) {
-        transErrors.name = required;
-      }
+    let enErrors = {};
 
-      if (!trans.address) {
-        transErrors.address = required;
-      }
+    if (!values.en.name) {
+      enErrors.name = required;
+    }
 
-      if (!trans.license_name) {
-        transErrors.license_name = required;
-      }
+    if (!values.en.address) {
+      enErrors.address = required;
+    }
 
-      if (!trans.license_agency) {
-        transErrors.license_agency = required;
-      }
+    if (!values.en.license_name) {
+      enErrors.license_name = required;
+    }
 
-      translationErrors.push(transErrors);
-    });
+    if (!values.en.license_agency) {
+      enErrors.license_agency = required;
+    }
 
-    if (translationErrors.some((item) => Object.keys(item).length > 0)) {
-      errors.translation = translationErrors;
+    if (Object.keys(enErrors).length > 0) {
+      errors.en = enErrors;
     }
 
     return errors;
@@ -269,41 +265,41 @@ function CompanyInfo() {
                     <div className={styles.formGroup}>
                       <label>
                         <h6>Tên công ty - tiếng Anh</h6>
-                        <Field name="translation[0].name" />
+                        <Field name="en.name" />
                         <ErrorMessage
                           component="p"
                           className="text-danger m-0"
-                          name="translation[0].name"
+                          name="en.name"
                         />
                       </label>
 
                       <label>
                         <h6>Địa chỉ - tiếng Anh</h6>
-                        <Field name="translation[0].address" />
+                        <Field name="en.address" />
                         <ErrorMessage
                           component="p"
                           className="text-danger m-0"
-                          name="translation[0].address"
+                          name="en.address"
                         />
                       </label>
 
                       <label>
                         <h6>Tên giấy phép kinh doanh - tiếng Anh</h6>
-                        <Field name="translation[0].license_name" />
+                        <Field name="en.license_name" />
                         <ErrorMessage
                           component="p"
                           className="text-danger m-0"
-                          name="translation[0].license_name"
+                          name="en.license_name"
                         />
                       </label>
 
                       <label>
                         <h6>Đơn vị cấp giấy phép - tiếng Anh</h6>
-                        <Field name="translation[0].license_agency" />
+                        <Field name="en.license_agency" />
                         <ErrorMessage
                           component="p"
                           className="text-danger m-0"
-                          name="translation[0].license_agency"
+                          name="en.license_agency"
                         />
                       </label>
                     </div>
