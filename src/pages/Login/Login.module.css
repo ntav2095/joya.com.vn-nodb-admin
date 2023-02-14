@@ -1,0 +1,89 @@
+.login {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-image: linear-gradient(
+    to right top,
+    #051937,
+    #004d7a,
+    #008793,
+    #00bf72,
+    #a8eb12
+  );
+
+  background: #008793;
+}
+
+.login h1 {
+  text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  font-size: 50px;
+}
+
+.login form {
+  width: 100%;
+  max-width: 350px;
+  box-shadow: var(--box-shadow);
+  background: white;
+  padding: 16px;
+}
+
+.login label {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.login input {
+  width: 100%;
+  padding: 0 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  height: 38px;
+  border-radius: 3.8px;
+}
+
+.login label span {
+  color: red;
+  margin-top: 2px;
+  display: block;
+}
+
+.errorMessage {
+  color: red;
+}
+
+.login button {
+  padding: 8px 16px;
+  border: none;
+  color: white;
+  font-weight: 700;
+  width: 100%;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 3.8px;
+  font-size: 15px;
+  background: #4f5dd3;
+  transition: 0.2s;
+}
+
+.login button:hover {
+  background: #616edd;
+}
+
+.login .expiredSession {
+  background: #ffdcdc;
+  border: 2px solid #ed9595;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.login .expiredSession h1 {
+  font-size: 17px;
+  color: #c35353;
+}

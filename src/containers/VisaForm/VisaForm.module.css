@@ -1,0 +1,29 @@
+.formGroup {
+  margin-bottom: 16px;
+}
+
+.formGroup input {
+  padding: 6px 8px;
+  width: 100%;
+}
+
+.formGroup .label {
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+
+.formGroup .fieldMessage {
+  color: red;
+  margin-top: 2px;
+}
+
+.visaForm button {
+  padding: 6px 16px;
+  background: var(--main-color);
+  color: white;
+  transition: 0.2s;
+}
+
+.visaForm button:hover {
+  background: var(--main-color-hover);
+}

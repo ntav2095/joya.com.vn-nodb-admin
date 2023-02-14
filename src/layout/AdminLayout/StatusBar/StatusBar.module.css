@@ -1,0 +1,34 @@
+.statusBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  position: sticky;
+  position: fixed;
+  left: 300px;
+  top: 0;
+  /* width: 100%; */
+  padding: 16px;
+  background: #131b2a;
+  border-left: 1px solid #273551;
+  z-index: 10;
+  height: 65px;
+  right: 0;
+  transition: 0.2s;
+}
+
+.statusBar.hide {
+  left: 50px;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+  color: rgb(225, 225, 238);
+}
+
+.children {
+  display: flex;
+  gap: 8px;
+}

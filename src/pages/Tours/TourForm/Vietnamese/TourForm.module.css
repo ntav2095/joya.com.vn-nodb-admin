@@ -1,0 +1,13 @@
+.currentImages {
+  padding-top: 16px;
+  margin-top: -32px;
+}
+
+.preview label {
+  display: block;
+  width: 150px;
+}
+
+.preview label img {
+  width: 100%;
+}

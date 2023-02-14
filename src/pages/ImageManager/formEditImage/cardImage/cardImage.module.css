@@ -1,0 +1,30 @@
+.containner__image{
+    display: inline-table;
+    width: 150px;
+    height: 95px;
+    padding: 8px;
+    position: relative;
+}
+.containner__image img{
+width: 150px;
+    height: 95px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 5px;
+    border: 0.2px solid gray;
+}
+.btnclose{
+    opacity: 0.5;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 16px;
+    height: 18px;
+    padding: 0px;
+    background-color: rgb(250, 192, 192);
+}
+.btnclose:hover{
+    z-index: 99;
+    opacity: 1;
+    background-color: rgb(245, 63, 63);
+}

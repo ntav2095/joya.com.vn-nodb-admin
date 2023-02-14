@@ -1,0 +1,21 @@
+.editPost {
+  padding: 8px;
+  padding-top: 80px;
+}
+
+.editPost input {
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  display: block;
+}
+
+.editPost img {
+  display: block;
+}
+
+.addLangBtn {
+  padding: 8px 16px;
+  background: #131b2a;
+  color: rgb(245, 245, 248);
+  border-radius: 3.8px;
+}

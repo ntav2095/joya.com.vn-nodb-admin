@@ -1,0 +1,4 @@
+.toursPagination .rc-pagination-item-active a {
+  background: #050505;
+  color: white;
+}

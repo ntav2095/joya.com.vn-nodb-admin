@@ -1,0 +1,167 @@
+.main {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  align-items: stretch;
+}
+
+.sidebar {
+  width: 300px;
+  padding: 16px;
+  background: #131b2a;
+  height: 100%;
+  overflow: auto;
+  transition: 0.2s;
+  position: relative;
+}
+
+.userInfo {
+  border-bottom: 1px solid #1e8553;
+  width: 100%;
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.userInfo p {
+  color: rgb(223, 223, 223);
+}
+
+.userInfo svg {
+  width: 30%;
+  color: #1e8553;
+  min-width: 36px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+}
+
+.nav {
+  padding: 0;
+}
+
+.nav a {
+  display: block;
+  margin-bottom: 6px;
+  padding: 6px 0;
+  padding-left: 8px;
+  color: rgb(223, 223, 223);
+  border-radius: 3.8px;
+  transition: 0.2s;
+}
+
+.nav a:hover {
+  color: rgb(223, 223, 223);
+  background: #2e3b54;
+}
+
+.nav a.active {
+  background: #1e8553;
+}
+
+.content {
+  background: #e8eaee;
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.nav a svg {
+  width: 30px;
+}
+
+/* ================ log out ====================  */
+.logout {
+  border: 1px solid #1e8553;
+  padding: 8px;
+  border-radius: 8px;
+  margin-top: 6px;
+  cursor: pointer;
+}
+.logout button {
+  margin-left: 8px;
+
+  background: #1e8553;
+  font-weight: 300;
+  color: white;
+  font-size: 13px;
+  border-radius: 3.8px;
+  padding: 2px 8px;
+}
+
+.logout svg {
+  width: 25px;
+  color: #1e8553;
+}
+
+/* ================ handle show hide menu  ==============  */
+.sidebar.hide {
+  width: 50px;
+  padding: 3px;
+  padding-top: 40px;
+}
+
+.sidebar.hide a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0;
+}
+
+.toggleBtn {
+  background: #1e8553;
+  color: white;
+  font-weight: 300;
+  border-radius: 3.8px;
+  /* padding: 4px 10px; */
+  white-space: nowrap;
+  position: absolute;
+  right: 3.6px;
+  top: 3.6px;
+  background: transparent;
+  padding: 0;
+}
+
+.toggleBtn svg {
+  transition: 0.2s;
+  font-size: 30px;
+  color: #1e8553;
+  width: 30px;
+  transform: scale(-1);
+}
+
+.toggleBtn:hover svg {
+  color: #39c782;
+}
+
+.sidebar.hide .toggleBtn svg {
+  transform: scale(1);
+}
+
+/* go to top btn  */
+.goToTopBtn {
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  border-radius: 8px;
+  color: white;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  transition: 0.2s;
+}
+
+.goToTopBtn:hover {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+.content {
+  position: relative;
+}

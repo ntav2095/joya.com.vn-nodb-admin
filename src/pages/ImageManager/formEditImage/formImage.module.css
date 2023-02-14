@@ -1,0 +1,17 @@
+.name{
+    width: 60%;
+    margin: 40px auto auto auto;
+    padding: 20px;
+    text-align: center;
+    font-size: 40px;
+    border-top: 0.5px solid ;
+}
+
+.currentImages{
+    padding: 20px;
+}
+
+.container__itinerary{
+    display: block;
+    width: 100%;
+}

@@ -1,0 +1,15 @@
+.updateItinerary__accordion .accordion-button {
+  padding: 8px;
+}
+
+.updateItinerary__accordion .accordion-button:focus {
+  box-shadow: none;
+}
+
+.updateItinerary__accordion .accordion-button:not(.collapsed) {
+  border: 0.5px solid #b8d1f5;
+}
+
+.updateItinerary__accordion .accordion-button::after {
+  margin-right: 72px;
+}
