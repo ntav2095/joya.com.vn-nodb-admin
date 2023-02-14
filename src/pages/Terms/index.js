@@ -2,8 +2,11 @@ import AdminLayout from "../../layout/AdminLayout";
 import { useEffect, useState } from "react";
 import SpinnerModal from "../../components/SpinnerModal";
 import styles from "./Terms.module.css";
-import "./Terms.override.css";
+import TopBar from "../../components/TopBar";
 import StatusBar from "../../layout/AdminLayout/StatusBar";
+import useAxios from "../../hooks/useAxios";
+import { fetchTerms, updateTerms } from "../../services/apis";
+import { Formik, Form, ErrorMessage } from "formik";
 
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
@@ -33,22 +36,97 @@ const TERM_ITEMS = [
 ];
 
 function Terms() {
+  const [sendRequest, isLoading, data, error] = useAxios();
+  const [goUpdate, isUpdating, updated, updatingError] = useAxios();
+  const [language, setLanguage] = useState("vi");
+
+  const submitHandler = (values) => {
+    sendRequest(updateTerms(values));
+  };
+
+  const validator = (values) => {
+    const errors = {};
+    return errors;
+  };
+
+  useEffect(() => {
+    sendRequest(fetchTerms());
+  }, []);
+
+  let terms;
+  if (data) {
+    terms = data.data;
+  }
+
+  console.log(terms);
+
   return (
     <>
+      <SpinnerModal show={isLoading || isUpdating} />
       <AdminLayout>
-        <StatusBar title="Điều khoản" />
+        {terms && (
+          <Formik
+            initialValues={terms}
+            validate={validator}
+            onSubmit={submitHandler}
+          >
+            {(formik) => (
+              <Form>
+                <TopBar title="Điều khoản">
+                  <button className="btn btn-primary">Lưu</button>
+                </TopBar>
 
-        <div className={styles.container + "  layoutManager"}>
-          <Tabs defaultActiveKey={TERM_ITEMS[0].type}>
-            {TERM_ITEMS.map((item) => (
-              <Tab key={item.type} eventKey={item.type} title={item.name}>
-                <div key={item.type} className="py-3 ">
-                  {<TermTab type={item.type} />}
+                <div className="p-3">
+                  <select
+                    className="p-2  mb-3"
+                    onChange={(e) => setLanguage(e.target.value)}
+                  >
+                    <option value="vi">Tiếng Việt</option>
+                    <option value="en">Tiếng Anh</option>
+                  </select>
+
+                  {language === "vi" && (
+                    <Tabs defaultActiveKey="registration">
+                      {TERM_ITEMS.map((item) => (
+                        <Tab
+                          key={item.type}
+                          eventKey={item.type}
+                          title={item.name}
+                        >
+                          <TermTab
+                            onChange={(delta) => {
+                              formik.setFieldValue(item.type, delta);
+                            }}
+                            initialValue={formik.values[item.type]}
+                          />
+                        </Tab>
+                      ))}
+                    </Tabs>
+                  )}
+
+                  {language === "en" && (
+                    <Tabs defaultActiveKey="registration">
+                      {TERM_ITEMS.map((item) => (
+                        <Tab
+                          key={item.type}
+                          eventKey={item.type}
+                          title={item.name}
+                        >
+                          <TermTab
+                            onChange={(delta) => {
+                              formik.setFieldValue(`en.${item.type}`, delta);
+                            }}
+                            initialValue={formik.values.en[item.type]}
+                          />
+                        </Tab>
+                      ))}
+                    </Tabs>
+                  )}
                 </div>
-              </Tab>
-            ))}
-          </Tabs>
-        </div>
+              </Form>
+            )}
+          </Formik>
+        )}
       </AdminLayout>
     </>
   );

@@ -1,5 +1,5 @@
 // term
-export { fetchAllTerms, fetchSingleTerm, updateTerm } from "./term.api.js";
+export { fetchTerms, updateTerms } from "./term.api.js";
 
 // tour image
 export { updateTourImages } from "./image.api.js";
