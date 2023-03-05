@@ -10,6 +10,7 @@ function ArticlesFilter({ categories }) {
   if (!category) {
     category = "";
   }
+
   const location = useLocation();
 
   const changeCategoryHandler = (e) => {

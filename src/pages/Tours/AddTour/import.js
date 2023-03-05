@@ -31,6 +31,8 @@ const initialValues = {
   journey: "",
   description: "",
   highlights: DELTA,
+  start_at: "",
+  start_at_text: "",
 
   price: "",
   duration: {
@@ -39,6 +41,7 @@ const initialValues = {
   },
 
   departure_dates: [],
+  departure_dates_text: "",
 
   price_policies: {
     includes: DELTA,
@@ -92,7 +95,10 @@ const dataPacker = (values) => {
   formData.append("price", Number(values.price.replace(/,/g, "")));
   formData.append("destinations", JSON.stringify(values.destinations));
   formData.append("departure_dates", JSON.stringify(values.departure_dates));
+  formData.append("departure_dates_text", values.departure_dates_text);
   formData.append("duration", JSON.stringify(values.duration));
+  formData.append("start_at", values.start_at);
+  formData.append("start_at_text", values.start_at_text);
   const itinerary = values.itinerary.map((item) => ({
     id: item.id,
     day: item.day,

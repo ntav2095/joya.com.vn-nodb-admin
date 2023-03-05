@@ -1,10 +1,10 @@
-import styles from "../Tours.module.css";
-import { PAGE_SIZE } from "../../../services/constants";
 import { Link } from "react-router-dom";
 import {
   exclamation as exclamationSVG,
   check as checkSVG,
 } from "../../../assets/svgs";
+import { PAGE_SIZE } from "../../../services/constants";
+import styles from "../Tours.module.css";
 
 function TourList({ tours, onDelete, page }) {
   const getCategoryText = (tour) => {
@@ -17,28 +17,19 @@ function TourList({ tours, onDelete, page }) {
     <table className={styles.table + " table table-bordered "}>
       <thead className="bg-dark text-light">
         <tr>
-          <th>
-            <div>STT</div>
+          <th style={{ width: "70px" }}>
+            <div className="text-center">STT</div>
+          </th>
+          <th style={{ width: "90px" }}>
+            <div className="text-center">Mã tour</div>
           </th>
           <th>
-            <div>Mã tour</div>
+            <div className="text-center">Tên tour</div>
           </th>
-          <th>
-            <div>Tên tour</div>
+          <th style={{ width: "120px" }}>
+            <div className="text-center">Danh mục</div>
           </th>
-          <th>
-            <div>Danh mục</div>
-          </th>
-          <th>
-            <div>Thumbnail</div>
-          </th>
-          <th>
-            <div>Banner</div>
-          </th>
-          <th>
-            <div>Ảnh lộ trình</div>
-          </th>
-          <th>
+          <th style={{ width: "90px" }}>
             <div className="text-center">Chức năng</div>
           </th>
         </tr>
@@ -53,7 +44,7 @@ function TourList({ tours, onDelete, page }) {
               </div>
             </td>
             <td>
-              <div>{tour.code}</div>
+              <div className="text-center">{tour.code}</div>
             </td>
             <td>
               <div>
@@ -63,26 +54,10 @@ function TourList({ tours, onDelete, page }) {
               </div>
             </td>
             <td>
-              <div>{getCategoryText(tour)}</div>
-            </td>
-
-            <td>
-              <div className="d-flex justify-content-center">
-                {tour.thumb ? available : missing}
-              </div>
+              <div className="text-center">{getCategoryText(tour)}</div>
             </td>
             <td>
               <div className="d-flex justify-content-center">
-                {tour.banner ? available : missing}
-              </div>
-            </td>
-            <td>
-              <div className="d-flex justify-content-center">
-                {tour.missingItineraryImages ? missing : available}
-              </div>
-            </td>
-            <td>
-              <div>
                 <button
                   className="btn btn-danger "
                   onClick={() => onDelete(tour.code)}

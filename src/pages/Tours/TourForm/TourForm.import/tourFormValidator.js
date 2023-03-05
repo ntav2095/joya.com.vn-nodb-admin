@@ -31,7 +31,7 @@ export const tourValidator = (values) => {
     errors.highlights = REQUIRED;
   }
 
-  if (values.departure_dates.length === 0) {
+  if (values.departure_dates.length === 0 && !values.departure_dates_text) {
     errors.departure_dates = REQUIRED;
   }
 
@@ -78,6 +78,11 @@ export const tourValidator = (values) => {
   // ----------------- destinations -------------------
   if (values.destinations.length === 0) {
     errors.destinations = REQUIRED;
+  }
+
+  // ----------------- start at -------------------
+  if (!values.start_at && !values.start_at_text) {
+    errors.start_at = REQUIRED;
   }
 
   // ----------------- thumbnail and banner -------------------

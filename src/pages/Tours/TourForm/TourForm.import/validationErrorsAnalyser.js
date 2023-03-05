@@ -89,6 +89,10 @@ export const validationErrorsAnalyser = (errors) => {
     arr.push("hình banner");
   }
 
+  if (errors.start_at) {
+    arr.push("điểm khởi hành");
+  }
+
   // translation
   if (errors.translation) {
     if (errors.en.name) {

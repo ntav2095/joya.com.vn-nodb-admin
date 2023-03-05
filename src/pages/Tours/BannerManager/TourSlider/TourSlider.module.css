@@ -1,3 +1,7 @@
 .main li {
   cursor: pointer;
 }
+
+.chosenTours li {
+  background: #d1e5ed;
+}

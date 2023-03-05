@@ -7,7 +7,6 @@ import OtherLanguage from "./OtherLanguage";
 import LanguageToggleBtns from "./LanguageToggleBtns";
 
 // other
-import useAxios from "../../../hooks/useAxios";
 import {
   validationErrorsAnalyser,
   setTouchedAllFields,
@@ -47,7 +46,6 @@ function TourForm({ initialValues, onSubmit }, ref) {
     >
       {(formik) => {
         const errorsText = validationErrorsAnalyser(formik.errors);
-        console.log("re-render");
         console.log(formik.errors);
         return (
           <Form

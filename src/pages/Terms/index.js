@@ -1,9 +1,8 @@
 import AdminLayout from "../../layout/AdminLayout";
 import { useEffect, useState } from "react";
 import SpinnerModal from "../../components/SpinnerModal";
-import styles from "./Terms.module.css";
+import "./Terms.override.css";
 import TopBar from "../../components/TopBar";
-import StatusBar from "../../layout/AdminLayout/StatusBar";
 import useAxios from "../../hooks/useAxios";
 import { fetchTerms, updateTerms } from "../../services/apis";
 import { Formik, Form, ErrorMessage } from "formik";
@@ -76,7 +75,7 @@ function Terms() {
                   <button className="btn btn-primary">Lưu</button>
                 </TopBar>
 
-                <div className="p-3">
+                <div className="p-2 terms">
                   <select
                     className="p-2  mb-3"
                     onChange={(e) => setLanguage(e.target.value)}

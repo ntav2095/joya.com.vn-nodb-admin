@@ -126,7 +126,9 @@ function Destinations({ title, places, formik }) {
 
         <div className="col-6">
           <h6>Địa điểm đã chọn</h6>
-          <div className={styles.listContainer}>{chosenItemsJSX}</div>
+          <div className={styles.listContainer + " " + styles.chosenItems}>
+            {chosenItemsJSX}
+          </div>
         </div>
       </div>
     </div>

@@ -225,26 +225,26 @@ function Destinations() {
             <table className="table table-bordered">
               <thead className="bg-dark text-light">
                 <tr>
-                  <th>
-                    <div>STT</div>
+                  <th style={{ width: "70px" }}>
+                    <div className="text-center">STT</div>
                   </th>
                   <th>
-                    <div>Tên</div>
+                    <div className="text-center">Tên</div>
                   </th>
                   <th>
-                    <div>Tên tiếng Anh</div>
+                    <div className="text-center">Tên tiếng Anh</div>
                   </th>
                   <th>
-                    <div>Vùng miền</div>
+                    <div className="text-center">Vùng miền</div>
                   </th>
                   <th>
-                    <div>Châu lục</div>
+                    <div className="text-center">Châu lục</div>
                   </th>
                   <th>
-                    <div>Loại</div>
+                    <div className="text-center">Loại</div>
                   </th>
-                  <th>
-                    <div>Công cụ</div>
+                  <th style={{ width: "160px" }}>
+                    <div className="text-center">Công cụ</div>
                   </th>
                 </tr>
               </thead>
@@ -253,16 +253,16 @@ function Destinations() {
                 {paginatedDestinations.map((dest, index) => (
                   <tr key={dest.id}>
                     <td>
-                      <div>{index + 1}</div>
+                      <div className="text-center">{index + 1}</div>
                     </td>
                     <th>
-                      <div>{dest.name}</div>
+                      <div className="text-center">{dest.name}</div>
                     </th>
                     <th>
-                      <div>{dest.en.name}</div>
+                      <div className="text-center">{dest.en.name}</div>
                     </th>
                     <th>
-                      <div>
+                      <div className="text-center">
                         {
                           destinations?.regions.find(
                             (item) => item.slug === dest.region
@@ -271,8 +271,7 @@ function Destinations() {
                       </div>
                     </th>
                     <th>
-                      <div>
-                        {" "}
+                      <div className="text-center">
                         {
                           destinations?.continents.find(
                             (item) => item.slug === dest.continent
@@ -281,11 +280,11 @@ function Destinations() {
                       </div>
                     </th>
                     <th>
-                      <div>{dest.type}</div>
+                      <div className="text-center">{dest.type}</div>
                     </th>
 
                     <td>
-                      <div>
+                      <div className="d-flex justify-content-center gap-2">
                         <button
                           className="btn btn-warning me-2 "
                           onClick={() => editHandler(dest)}

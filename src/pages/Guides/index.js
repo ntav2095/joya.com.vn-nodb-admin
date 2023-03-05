@@ -65,8 +65,9 @@ function Articles() {
 
   let filteredArticles = articles || [];
   if (category) {
+    console.log(filteredArticles);
     filteredArticles = filteredArticles.filter(
-      (article) => article.category === category
+      (article) => article.category.slug === category
     );
   }
 
@@ -181,23 +182,23 @@ function Articles() {
         <div className="p-2">
           {data && <ArticlesFilter categories={data.metadata.category} />}
 
-          {articles && articles.length > 0 && (
+          {filteredArticles && filteredArticles.length > 0 && (
             <>
               <table className="table table-bordered">
                 <thead className="bg-dark text-light">
                   <tr>
+                    <th style={{ width: "80px" }}>
+                      <div className="text-center">STT</div>
+                    </th>
                     <th>
-                      <div>STT</div>
+                      <div className="text-center">Tiêu đề</div>
                     </th>
-                    <th style={{ width: "70%" }}>
-                      <div>Tiêu đề</div>
-                    </th>
-                    <th style={{ width: "70%" }}>
-                      <div>Danh mục</div>
+                    <th style={{ width: "200px" }}>
+                      <div className="text-center">Danh mục</div>
                     </th>
 
-                    <th>
-                      <div>Hành động</div>
+                    <th style={{ width: "120px" }}>
+                      <div className="text-center">Hành động</div>
                     </th>
                   </tr>
                 </thead>
@@ -211,7 +212,9 @@ function Articles() {
                     .map((item, index) => (
                       <tr key={item.slug}>
                         <td>
-                          <div>{(page - 1) * PAGE_SIZE + index + 1}</div>
+                          <div className="text-center">
+                            {(page - 1) * PAGE_SIZE + index + 1}
+                          </div>
                         </td>
                         <td>
                           <div>
@@ -221,17 +224,13 @@ function Articles() {
                           </div>
                         </td>
                         <td>
-                          <div>
-                            {
-                              data?.metadata.category.find(
-                                (cat) => cat.id === item.category
-                              )?.name
-                            }
+                          <div className="text-center">
+                            {item.category.name}
                           </div>
                         </td>
 
                         <td>
-                          <div className="d-flex flex-nowrap">
+                          <div className="d-flex justify-content-center">
                             <button
                               className="btn btn-danger me-2"
                               onClick={() => setConfirmDelete(item)}
@@ -255,7 +254,9 @@ function Articles() {
             </>
           )}
 
-          {articles && articles.length === 0 && <h5>Không có bài viết nào</h5>}
+          {filteredArticles && filteredArticles.length === 0 && (
+            <h5>Không có bài viết nào</h5>
+          )}
 
           {fetchingError && <ErrorMessage msg={fetchingError.message} />}
         </div>

@@ -1,12 +1,14 @@
 // main
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 // components
 import AdminLayout from "../../../layout/AdminLayout";
 import ArticleForm from "../ArticleForm";
 import ErrorMessage from "../../../components/ErrorMessage";
 import SpinnerModal from "../../../components/SpinnerModal";
+import NotifyModal from "../../../components/NotifyModal";
+import TopBar from "../../../components/TopBar";
 
 // other
 import useAxios from "../../../hooks/useAxios";
@@ -15,47 +17,46 @@ import { fetchSingleArticle, updateArticle } from "../../../services/apis";
 
 // css
 import styles from "./EditArticle.module.css";
-import TopBar from "../../../components/TopBar";
 
 function EditPost() {
-  const [goEdit, editing, isSuccess, editingError] = useAxios();
+  const [goEdit, editing, isSuccess, editingError, resetEdit] = useAxios();
   const [fetchArticle, fetching, fetchedData, fetchingError] = useAxios();
   const [article, setArticle] = useState(null);
   const submitRef = useRef();
+  const navigate = useNavigate();
 
-  const { articleId } = useParams();
+  const { slug } = useParams();
 
   const submitHandler = async (values) => {
     const formData = new FormData();
     const { thumb, banner, ...rest } = values;
 
-    formData.append("article", JSON.stringify({ ...rest, _id: articleId }));
-    formData.append("thumb", thumb);
-    formData.append("banner", banner);
+    if (typeof thumb === "string") {
+      rest.thumb = thumb;
+    } else {
+      formData.append("thumb", thumb);
+    }
+
+    if (typeof banner === "string") {
+      rest.banner = banner;
+    } else {
+      formData.append("banner", banner);
+    }
+
+    formData.append("article", JSON.stringify({ ...rest, old_slug: slug }));
+
     goEdit(updateArticle(formData));
   };
 
   useEffect(() => {
-    fetchArticle(fetchSingleArticle(articleId));
-  }, [articleId]);
+    fetchArticle(fetchSingleArticle(slug));
+  }, [slug]);
 
   useEffect(() => {
     if (fetchedData) {
       setArticle(fetchedData.data);
     }
   }, [fetchedData]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      alert("Thanh cong");
-    }
-  }, [isSuccess]);
-
-  useEffect(() => {
-    if (editingError) {
-      alert("That bai");
-    }
-  }, [editingError]);
 
   const initialValues = article;
 
@@ -65,14 +66,46 @@ function EditPost() {
     }
   };
 
-  usePageTitle("Cập nhật guides | Go Travel");
+  usePageTitle("Cập nhật guide | Joya Travel");
 
+  // notification
+  let notify = {};
+  if (isSuccess) {
+    notify = {
+      show: Boolean(isSuccess),
+      message: "Thành công",
+      type: "success",
+      btn: {
+        component: "button",
+        text: "OK",
+        cb: () => {
+          navigate("/guides");
+        },
+      },
+    };
+  }
+
+  if (editingError) {
+    notify = {
+      show: Boolean(editingError),
+      message: editingError.message,
+      type: "error",
+      btn: {
+        component: "button",
+        text: "OK",
+        cb: () => {
+          resetEdit();
+        },
+      },
+    };
+  }
   return (
     <>
       <SpinnerModal show={editing} />
+      <NotifyModal {...notify} />
 
-      <AdminLayout title={`Cập nhật bài viết ID: ${articleId}`}>
-        <TopBar title={`Cập nhật guides ${articleId}`}>
+      <AdminLayout title={`Cập nhật bài viết: ${slug}`}>
+        <TopBar title={`Cập nhật guides ${slug}`}>
           <button className="btn btn-primary" onClick={submitTrigger}>
             Lưu
           </button>

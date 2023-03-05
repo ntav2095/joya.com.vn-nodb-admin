@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 // components
 import AdminLayout from "../../../layout/AdminLayout";
-import GuidesCategoryModal from "./GuidesCategoryModal";
+import VisasCategoryModal from "./VisasCategoryModal";
 import NotifyModal from "../../../components/NotifyModal";
 import TopBar from "../../../components/TopBar";
 
@@ -11,11 +11,11 @@ import TopBar from "../../../components/TopBar";
 import useAxios from "../../../hooks/useAxios";
 import usePageTitle from "../../../hooks/usePageTitle";
 import {
-  fetchGuidesCategory,
-  deleteGuidesCategoryItem,
+  fetchVisasCategory,
+  deleteVisasCategoryItem,
 } from "../../../services/apis";
 
-function GuidesCategory() {
+function VisasCategory() {
   const [sendRequest, isLoading, data, error, resetStates] = useAxios();
   const [goDelete, isDeleting, deletedData, deletingError, resetDelete] =
     useAxios();
@@ -28,7 +28,7 @@ function GuidesCategory() {
   });
 
   const goFetchCategories = () => {
-    sendRequest(fetchGuidesCategory());
+    sendRequest(fetchVisasCategory());
   };
 
   // fetch categories
@@ -42,7 +42,7 @@ function GuidesCategory() {
     }
   }, [data]);
 
-  usePageTitle("Danh mục Guides | Joya Travel");
+  usePageTitle("Danh mục Visas | Joya Travel");
 
   // notification
   let notify = {};
@@ -55,7 +55,7 @@ function GuidesCategory() {
         component: "button",
         text: "Xóa",
         cb: () => {
-          goDelete(deleteGuidesCategoryItem(confirmDelete.id));
+          goDelete(deleteVisasCategoryItem(confirmDelete.id));
           setConfirmDelete(null);
         },
       },
@@ -111,7 +111,7 @@ function GuidesCategory() {
   return (
     <AdminLayout>
       <NotifyModal {...notify} />
-      <TopBar title="Quản lý danh mục guides">
+      <TopBar title="Quản lý danh mục Visas">
         <button
           className="btn btn-primary"
           onClick={() => setModal({ show: true, mode: "add", item: null })}
@@ -134,7 +134,7 @@ function GuidesCategory() {
 
             <tbody className="bg-white">
               {category.map((item, index) => (
-                <tr key={item}>
+                <tr key={item.slug}>
                   <td style={{ width: "70px" }}>
                     <div className="text-center">{index + 1}</div>
                   </td>
@@ -171,7 +171,7 @@ function GuidesCategory() {
         {data && data.data.length === 0 && <h6>Không có item nào</h6>}
       </div>
 
-      <GuidesCategoryModal
+      <VisasCategoryModal
         {...modal}
         onHide={() => setModal({ show: false, mode: "", item: null })}
         setCategory={setCategory}
@@ -181,4 +181,4 @@ function GuidesCategory() {
   );
 }
 
-export default GuidesCategory;
+export default VisasCategory;

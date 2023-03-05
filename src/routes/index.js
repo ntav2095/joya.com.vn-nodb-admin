@@ -7,6 +7,7 @@ import NotFound from "../pages/NotFound";
 import EditVisa from "../pages/Visas/EditVisa";
 import AddVisa from "../pages/Visas/AddVisa";
 import Visas from "../pages/Visas";
+import VisasCategory from "../pages/Visas/VisasCategory";
 
 // tour
 // import Tours from "../pages/Tours";
@@ -112,23 +113,28 @@ export default [
     requiredAuth: true,
   },
   {
-    path: "/guides/cap-nhat/:articleId",
+    path: "/guides/cap-nhat/:slug",
     element: <EditArticle />,
     requiredAuth: true,
   },
   // visa
   {
-    path: "/visa-products",
+    path: "/visas",
     element: <Visas />,
     requiredAuth: true,
   },
   {
-    path: "/add-visa-product",
+    path: "/visas/them-moi",
     element: <AddVisa />,
     requiredAuth: true,
   },
   {
-    path: "/edit-visa-product/:visaId",
+    path: "/visas/quan-ly-danh-muc",
+    element: <VisasCategory />,
+    requiredAuth: true,
+  },
+  {
+    path: "/edit-visa-product/:slug",
     element: <EditVisa />,
     requiredAuth: true,
   },

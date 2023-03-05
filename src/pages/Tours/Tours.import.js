@@ -36,13 +36,6 @@ const toursFilter = (tours, { page, search, category }) => {
     t = t.filter((item) => item.is_vn_tour);
   }
 
-  // Thiếu hình ảnh
-  if (category === "thieu-hinh") {
-    t = t.filter((item) => {
-      return !item.banner || !item.thumb || item.missingItineraryImages;
-    });
-  }
-
   // search
   if (search) {
     t = t.filter((tour) =>

@@ -130,7 +130,7 @@ function SliderManager() {
           </button>
         </TopBar>
 
-        <div className="p-2  ">
+        <div className="p-2  layoutManager">
           {tours && (
             <Tabs defaultActiveKey="Trang chủ">
               <Tab eventKey="Trang chủ" title="Trang chủ" className="bg-white">

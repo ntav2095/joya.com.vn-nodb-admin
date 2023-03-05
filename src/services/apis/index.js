@@ -21,11 +21,14 @@ export { fetchAbout, updateAbout } from "./about.api.js";
 // visa
 export {
   fetchVisas,
-  fetchVisasAvailableCountries,
   fetchSingleVisaProduct,
   addNewVisaProduct,
   updateVisaProduct,
   deleteVisaProduct,
+  fetchVisasCategory,
+  addVisasCategoryItem,
+  updateVisasCategoryItem,
+  deleteVisasCategoryItem,
 } from "./visa.api.js";
 
 // category

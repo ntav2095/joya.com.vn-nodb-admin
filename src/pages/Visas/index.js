@@ -1,4 +1,5 @@
 // main
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // components
@@ -10,18 +11,12 @@ import useAxios from "../../hooks/useAxios";
 import { fetchVisas, deleteVisaProduct } from "../../services/apis";
 
 // css
-import { useEffect, useState } from "react";
 import SpinnerModal from "../../components/SpinnerModal";
-import useFetchVisaCountries from "./visaHooks/useFetchVisasCountries";
+import { useSelector } from "react-redux";
 
 function Visas() {
   const [sendRequest, isLoading, data, error] = useAxios();
   const [startDeleting, isDeleting, deleted, deletingError] = useAxios();
-  const { continents, countries, getCountries, getCountryName } =
-    useFetchVisaCountries();
-  const [filter, setFilter] = useState({
-    country: "",
-  });
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure to delete this visa product?")) {
@@ -30,13 +25,13 @@ function Visas() {
   };
 
   useEffect(() => {
-    sendRequest(fetchVisas(filter));
-  }, [filter]);
+    sendRequest(fetchVisas());
+  }, []);
 
   useEffect(() => {
     if (deleted) {
       alert("Deleted");
-      sendRequest(fetchVisas(filter));
+      sendRequest(fetchVisas());
     }
   }, [deleted]);
 
@@ -45,6 +40,14 @@ function Visas() {
       alert(`Failed to delete: ${deletingError.message.vi}`);
     }
   }, [deletingError]);
+
+  const changeFilterHandler = (e) => {
+    //
+  };
+
+  const countries = useSelector(
+    (state) => state.destinations.destinations.places
+  ).filter((item) => item.type === "country");
 
   return (
     <>
@@ -55,101 +58,71 @@ function Visas() {
         text="New Visa "
       >
         <TopBar title="Dịch vụ visa">
-          <Link className="btn btn-primary" to="/add-visa-product">
-            Tạo sản phẩm visa
+          <Link className="btn btn-primary" to="/visas/them-moi">
+            Tạo visa mới
+          </Link>
+
+          <Link className="btn btn-primary" to="/visas/quan-ly-danh-muc">
+            Danh mục
           </Link>
         </TopBar>
 
         <div className="p-2">
-          <select
-            className="p-2 mb-2 me-2"
-            onChange={(e) => {
-              setFilter((prev) => ({
-                ...prev,
-                country: getCountries(e.target.value),
-              }));
-            }}
-          >
-            <option value="">Châu lục</option>
-            {continents &&
-              continents.map((item) => (
-                <option key={item.code} value={item.code}>
-                  {item.name}
-                </option>
-              ))}
-          </select>
-
-          <select
-            className="p-2 mb-2"
-            onChange={(e) =>
-              setFilter((prev) => ({ ...prev, country: e.target.value }))
-            }
-          >
-            <option value="">Nước</option>
-            {countries &&
-              countries.map((item) => (
-                <option key={item.code} value={item.code}>
-                  {item.name}
-                </option>
-              ))}
-          </select>
-
           {data && data.data.length > 0 && (
             <table className="table table-bordered">
               <thead className="bg-dark text-light">
                 <tr>
-                  <th>
-                    <div>STT</div>
+                  <th style={{ width: "70px" }}>
+                    <div className="text-center">STT</div>
                   </th>
                   <th>
-                    <div>ID</div>
+                    <div className="text-center">Tên</div>
+                  </th>
+                  <th style={{ width: "160px" }}>
+                    <div className="text-center">Nước</div>
                   </th>
                   <th>
-                    <div>Name</div>
+                    <div className="text-center">Giá</div>
                   </th>
-                  <th>
-                    <div>Country</div>
-                  </th>
-                  <th>
-                    <div>Price</div>
-                  </th>
-                  <th>
-                    <div>Action Buttons</div>
+                  <th style={{ width: "200px" }}>
+                    <div className="text-center">Công cụ</div>
                   </th>
                 </tr>
               </thead>
 
               <tbody className="bg-light">
                 {data.data.map((visa, index) => (
-                  <tr key={visa._id}>
+                  <tr key={visa.slug}>
                     <td>
-                      <div>{index + 1}</div>
-                    </td>
-                    <td>
-                      <div>{visa._id}</div>
+                      <div className="text-center">{index + 1}</div>
                     </td>
                     <td>
                       <div>{visa.name}</div>
                     </td>
                     <td>
-                      <div>{getCountryName(visa.country)}</div>
+                      <div className="text-center">
+                        {
+                          countries.find((item) => item.id == visa.country)
+                            ?.name
+                        }
+                      </div>
                     </td>
                     <td>
                       <div>{visa.price}</div>
                     </td>
                     <td>
-                      <div>
+                      <div className="d-flex justify-content-center gap-2">
                         <Link
                           className="btn btn-warning me-2"
                           to={`/edit-visa-product/${visa._id}`}
                         >
-                          Edit
+                          Sửa
                         </Link>
                         <button
                           className="btn btn-danger me-2"
                           onClick={() => deleteHandler(visa._id)}
                         >
-                          Remove
+                          Xóa
                         </button>
                       </div>
                     </td>
@@ -159,7 +132,9 @@ function Visas() {
             </table>
           )}
 
-          {data && data.data.length === 0 && <h5>No visa products</h5>}
+          {data && data.data.length === 0 && (
+            <h5>Không có sản phẩm visa nào</h5>
+          )}
         </div>
       </AdminLayout>
     </>

@@ -8,16 +8,22 @@ import { toggleSidebar } from "../../store/layout.slice";
 // assets
 import {
   exit as exitSvg,
-  user as userSVG,
   chevronDoubleUp as upSVG,
   boxArrowRight,
-  bus,
-  passport,
-  layout,
-  category,
   book,
-  home,
 } from "../../assets/svgs";
+
+import {
+  home as homeSVG,
+  creditCard as creditCardSVG,
+  plane as planeSVG,
+  user as userSVG,
+  phone as phoneSVG,
+  earth as earthSVG,
+  newspaper as newspaperSVG,
+  book as bookSVG,
+  building as buildingSVG,
+} from "./layoutIcons";
 
 // css
 import styles from "./AdminLayout.module.css";
@@ -68,48 +74,48 @@ function AdminLayout({ children }) {
             <ul className={styles.nav}>
               <li>
                 <NavLink className={navLinkClasses} to="/" end>
-                  {!sidebarIsShow ? home : "Dashboard"}
+                  {homeSVG} {sidebarIsShow && "Dashboard"}
                 </NavLink>
               </li>
 
               <li>
                 <NavLink className={navLinkClasses} to="/tours">
-                  {!sidebarIsShow ? bus : "Tour"}
+                  {planeSVG} {sidebarIsShow && "Tour"}
                 </NavLink>
               </li>
               <li>
                 <NavLink className={navLinkClasses} to="/guides">
-                  {!sidebarIsShow ? book : "Guides"}
+                  {newspaperSVG} {sidebarIsShow && "Guides"}
                 </NavLink>
               </li>
               <li>
-                <NavLink className={navLinkClasses} to="/visa-products">
-                  {!sidebarIsShow ? passport : "Visa"}
+                <NavLink className={navLinkClasses} to="/visas">
+                  {creditCardSVG} {sidebarIsShow && "Visa"}
                 </NavLink>
               </li>
               <li>
                 <NavLink className={navLinkClasses} to="/dieu-khoan">
-                  {!sidebarIsShow ? book : "Điều khoản"}
+                  {bookSVG} {sidebarIsShow && "Điều khoản"}
                 </NavLink>
               </li>
               <li>
                 <NavLink className={navLinkClasses} to="/users">
-                  User
+                  {userSVG} {sidebarIsShow && "User"}
                 </NavLink>
               </li>
               <li>
                 <NavLink className={navLinkClasses} to="/ve-cong-ty">
-                  About
+                  {buildingSVG} {sidebarIsShow && "Giới thiệu"}
                 </NavLink>
               </li>
               <li>
                 <NavLink className={navLinkClasses} to="/diem-den">
-                  {!sidebarIsShow ? category : "Điểm đến"}
+                  {earthSVG} {sidebarIsShow && "Điểm đến"}
                 </NavLink>
               </li>
               <li>
                 <NavLink className={navLinkClasses} to="/thong-tin-cong-ty">
-                  {!sidebarIsShow ? category : "Công ty"}
+                  {phoneSVG} {sidebarIsShow && "Liên hệ"}
                 </NavLink>
               </li>
               {!user && (

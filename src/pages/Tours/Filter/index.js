@@ -10,10 +10,7 @@ function Filter() {
   const location = useLocation();
   let { category } = useParams();
 
-  if (
-    !category ||
-    !["chau-au", "viet-nam", "thieu-hinh"].includes(category.trim())
-  ) {
+  if (!category || !["chau-au", "viet-nam"].includes(category.trim())) {
     category = "";
   }
 
@@ -68,7 +65,6 @@ function Filter() {
         <option value="">Danh mục</option>
         <option value="chau-au">Tour châu Âu</option>
         <option value="viet-nam">Tour Việt Nam</option>
-        <option value="thieu-hinh-anh">Thiếu hình ảnh</option>
       </select>
 
       <form>

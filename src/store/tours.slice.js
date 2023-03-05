@@ -6,6 +6,7 @@ import {
   updateTour as updateTourAPI,
   addNewTour,
   updateHotTours as updateHotToursAPI,
+  deleteTour as deleteTourAPI,
 } from "../services/apis";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
     updateSliderTours: "idle",
     updateTour: "idle",
     addTour: "idle",
+    deleteTour: "idle",
     updateHotTours: "idle",
   }, // idle | pending | succeeded | failed,
   error: {
@@ -21,6 +23,7 @@ const initialState = {
     updateSliderTours: null,
     updateTour: null,
     addTour: null,
+    deleteTour: null,
     updateHotTours: null,
   },
   tours: [],
@@ -145,28 +148,34 @@ export const addTour = createAsyncThunk(
   }
 );
 
+export const deleteTour = createAsyncThunk(
+  "tours/deleteTour",
+  async (tourCode, { rejectWithValue }) => {
+    try {
+      const response = await axios(deleteTourAPI(tourCode));
+      const code = response.data.data.code;
+      return code;
+    } catch (error) {
+      console.error(error);
+      if (error.response?.data) {
+        return rejectWithValue({
+          message: error.response.data.message || "",
+          httpCode: error.response.status,
+        });
+      } else {
+        return rejectWithValue({
+          message: error.message,
+          httpCode: null,
+        });
+      }
+    }
+  }
+);
+
 const toursSlice = createSlice({
   name: "tours",
   initialState,
   reducers: {
-    removeTour(state, action) {
-      state.tours = state.tours.filter((tour) => tour.code !== action.payload);
-    },
-    addTour(state, action) {
-      state.tours = [...state.tours, action.payload];
-    },
-    updateTour(state, action) {
-      state.tours = state.tours.map((tour) =>
-        tour._id === action.payload._id ? action.payload : tour
-      );
-    },
-    updateHotTours(state, action) {
-      // action.payload: [ _id1, _id2 ]
-      state.tours = state.tours.map((tour) => ({
-        ...tour,
-        hot: action.payload.includes(tour.code),
-      }));
-    },
     resetToursState(state, action) {
       state.status[action.payload] = "idle";
       state.error[action.payload] = null;
@@ -250,7 +259,7 @@ const toursSlice = createSlice({
         state.error.updateHotTours = action.payload;
         state.status.updateHotTours = "failed";
       })
-      // add  tours
+      // add  tour
       .addCase(addTour.pending, (state, action) => {
         state.status.addTour = "pending";
         state.error.addTour = null;
@@ -262,6 +271,21 @@ const toursSlice = createSlice({
       .addCase(addTour.rejected, (state, action) => {
         state.error.addTour = action.payload;
         state.status.addTour = "failed";
+      })
+      // delete  tour
+      .addCase(deleteTour.pending, (state, action) => {
+        state.status.deleteTour = "pending";
+        state.error.deleteTour = null;
+      })
+      .addCase(deleteTour.fulfilled, (state, action) => {
+        state.status.deleteTour = "succeeded";
+        state.tours = state.tours.filter(
+          (tour) => tour.code !== action.payload
+        );
+      })
+      .addCase(deleteTour.rejected, (state, action) => {
+        state.error.deleteTour = action.payload;
+        state.status.deleteTour = "failed";
       });
   },
 });
@@ -293,5 +317,5 @@ export const selectTours = (state) => {
   };
 };
 
-export const { removeTour, resetToursState } = toursSlice.actions;
+export const { resetToursState } = toursSlice.actions;
 export default toursSlice.reducer;

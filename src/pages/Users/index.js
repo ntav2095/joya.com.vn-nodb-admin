@@ -54,7 +54,7 @@ function Users() {
     <>
       <SpinnerModal show={isLoading || isChangingRole || isDeleting} />
       <AdminLayout>
-        <TopBar title="Quản lý users">
+        <TopBar title="Quản lý user">
           <Link className="btn btn-primary" to="/users/create-user">
             Tạo user mới
           </Link>
@@ -83,9 +83,6 @@ function Users() {
               <thead className="bg-dark text-light text-center">
                 <tr>
                   <th>
-                    <div>_id</div>
-                  </th>
-                  <th>
                     <div>username</div>
                   </th>
                   <th>
@@ -97,23 +94,22 @@ function Users() {
                   <th>
                     <div>client</div>
                   </th>
-                  <th>
-                    <div>actions</div>
+                  <th style={{ width: "90px" }}>
+                    <div className="text-center">Công cụ</div>
                   </th>
                 </tr>
               </thead>
 
               <tbody className="bg-light">
                 {users.map((user) => (
-                  <tr key={user._id}>
+                  <tr key={user.username}>
                     <td>
-                      <div>{user._id}</div>
+                      <div className="d-flex justify-content-center">
+                        {user.username}
+                      </div>
                     </td>
                     <td>
-                      <div>{user.username}</div>
-                    </td>
-                    <td>
-                      <div>
+                      <div className="d-flex justify-content-center">
                         <input
                           type="checkbox"
                           onChange={() =>
@@ -124,7 +120,7 @@ function Users() {
                       </div>
                     </td>
                     <td>
-                      <div>
+                      <div className="d-flex justify-content-center">
                         <input
                           type="checkbox"
                           onChange={() =>
@@ -139,7 +135,7 @@ function Users() {
                       </div>
                     </td>
                     <td>
-                      <div>
+                      <div className="d-flex justify-content-center">
                         <input
                           type="checkbox"
                           onChange={() =>
@@ -156,7 +152,7 @@ function Users() {
                       </div>
                     </td>
                     <td>
-                      <div>
+                      <div className="d-flex justify-content-center">
                         <button
                           onClick={() => deleteUserHandler(user.username)}
                           className="btn btn-sm btn-danger ms-2"

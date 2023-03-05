@@ -31,9 +31,15 @@ import "./App.css";
 storeInjector(store);
 i18nInjector(i18n);
 
-const user = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user"))
-  : null;
+let user = localStorage.getItem("user");
+if (user) {
+  try {
+    user = JSON.parse(user);
+  } catch (error) {
+    user = null;
+  }
+}
+
 store.dispatch(setUser(user));
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

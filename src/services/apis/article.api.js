@@ -51,8 +51,8 @@ export const updateGuidesCategoryItem = (data) => ({
   data,
 });
 
-export const deleteGuidesCategoryItem = (slug) => ({
+export const deleteGuidesCategoryItem = (id) => ({
   method: "DELETE",
   url: "/admin/article/category",
-  data: slug,
+  data: { id },
 });

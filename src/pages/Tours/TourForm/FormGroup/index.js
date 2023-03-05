@@ -1,10 +1,5 @@
 import { ErrorMessage, Field } from "formik";
 import Editor from "../../../../containers/Editor";
-import {
-  isSameDate,
-  stringToDate,
-} from "../../../../services/helpers/dateHandler";
-import { format } from "date-fns";
 import styles from "./FormGroup.module.css";
 
 const requiredField = <em title="Bắt buộc">(bắt buộc)</em>;
@@ -137,73 +132,6 @@ function FormGroup(props) {
 
     form_field = (
       <input type="text" value={values[name]} onChange={changeHandler} />
-    );
-  }
-
-  if (type === "departureDates") {
-    const { values, setFieldValue } = formik;
-
-    const keydownHandler = (e) => {
-      if (e.code === "Enter") {
-        e.preventDefault();
-        return false;
-      }
-    };
-
-    const keyupHandler = (e) => {
-      if (e.code === "Enter") {
-        const [err, newDate] = stringToDate(e.target.value);
-        if (!err) {
-          if (values.departure_dates.includes(newDate)) {
-            alert("Trùng ngày");
-            return;
-          }
-
-          setFieldValue(
-            "departure_dates",
-            [...values.departure_dates, newDate],
-            false
-          );
-          e.target.value = "";
-        }
-      }
-    };
-
-    const removeDateHandler = (removedDate) => {
-      setFieldValue(
-        "departure_dates",
-        values.departure_dates.filter(
-          (timestamp) => !isSameDate(new Date(removedDate), new Date(timestamp))
-        ),
-        false
-      );
-    };
-
-    form_field = (
-      <div>
-        <input
-          type="text"
-          name="todo"
-          onKeyDown={keydownHandler}
-          onKeyUp={keyupHandler}
-        />
-
-        <div className="d-flex flex-wrap">
-          {values.departure_dates.map((item) => (
-            <p className="btn btn-sm btn-secondary me-1 mt-2" key={item}>
-              {format(new Date(item), "dd/MM/yyyy")}
-              <span
-                className="ms-2"
-                onClick={() => {
-                  removeDateHandler(item);
-                }}
-              >
-                x
-              </span>
-            </p>
-          ))}
-        </div>
-      </div>
     );
   }
 

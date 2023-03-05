@@ -18,3 +18,7 @@
   overflow-y: auto;
   height: 250px;
 }
+
+.chosenItems li {
+  background: #c1d5e4;
+}

@@ -4,12 +4,6 @@ export const fetchVisas = (params) => ({
   params,
 });
 
-export const fetchVisasAvailableCountries = (params) => ({
-  method: "GET",
-  url: "/admin/visa/available-countries",
-  params,
-});
-
 export const fetchSingleVisaProduct = (visaId) => ({
   method: "PUT",
   url: `/admin/visa/${visaId}`,
@@ -17,7 +11,7 @@ export const fetchSingleVisaProduct = (visaId) => ({
 
 export const addNewVisaProduct = (data) => ({
   method: "POST",
-  url: "/visa",
+  url: "/admin/visa",
   data,
 });
 
@@ -30,5 +24,29 @@ export const updateVisaProduct = (data) => ({
 export const deleteVisaProduct = (id) => ({
   method: "GET",
   url: "/admin/visa",
+  data: { id },
+});
+
+// visa category
+export const fetchVisasCategory = () => ({
+  method: "GET",
+  url: "/admin/visa/category",
+});
+
+export const addVisasCategoryItem = (data) => ({
+  method: "POST",
+  url: "/admin/visa/category",
+  data,
+});
+
+export const updateVisasCategoryItem = (data) => ({
+  method: "PUT",
+  url: "/admin/visa/category",
+  data,
+});
+
+export const deleteVisasCategoryItem = (id) => ({
+  method: "DELETE",
+  url: "/admin/visa/category",
   data: { id },
 });

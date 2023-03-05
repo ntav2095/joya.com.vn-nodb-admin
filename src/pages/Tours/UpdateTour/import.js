@@ -53,6 +53,7 @@ const dataPacker = (values) => {
   formData.append("price", Number(values.price.replace(/,/g, "")));
   formData.append("destinations", j(destinations));
   formData.append("departure_dates", j(values.departure_dates));
+  formData.append("departure_dates_text", values.departure_dates_text);
   formData.append("duration", j(values.duration));
   formData.append("itinerary", j(itinerary));
   formData.append("terms", j(values.terms));
@@ -62,6 +63,8 @@ const dataPacker = (values) => {
   formData.append("thumb", values.thumb);
   formData.append("banner", values.banner);
   formData.append("old_code", values.old_code);
+  formData.append("start_at", values.start_at);
+  formData.append("start_at_text", values.start_at_text);
 
   // itinerary images
   const itineraryImages = [];

@@ -11,3 +11,7 @@
 .tourList li:hover {
   background: #f4f7f9;
 }
+
+.chosenTours li {
+  background: #d1e5ed;
+}

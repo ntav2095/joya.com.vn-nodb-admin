@@ -101,7 +101,8 @@ function HotToursManager() {
             Lưu
           </button>
         </TopBar>
-        <div className="p-2">
+
+        <div className="p-3">
           <div className="row p-2">
             <div className="col-12 col-md-6 border-end">
               <HotToursTab
@@ -112,6 +113,7 @@ function HotToursManager() {
                 removeTour={removeTour}
               />
             </div>
+
             <div className="col-12 col-md-6">
               <HotToursTab
                 title="Tour trong nước"

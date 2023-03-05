@@ -57,11 +57,11 @@ function AboutManager() {
     }
   }, [language]);
 
-  usePageTitle("Quản lý about | Joya Travel");
+  usePageTitle("Giới thiệu công ty | Joya Travel");
 
   return (
     <AdminLayout>
-      <TopBar title="Quản lý about">
+      <TopBar title="Giới thiệu công ty">
         <button onClick={submitHandler} className="btn btn-primary">
           Update
         </button>

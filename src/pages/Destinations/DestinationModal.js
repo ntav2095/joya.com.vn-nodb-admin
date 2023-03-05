@@ -52,12 +52,6 @@ function DestinationModal({
     }
   }, [data]);
 
-  useEffect(() => {
-    if (error) {
-      alert("Failure");
-    }
-  }, [error]);
-
   // notification
   let notify = {};
   if (data) {
@@ -150,6 +144,7 @@ function DestinationModal({
                 </div>
               </Modal.Body>
               <Modal.Footer>
+                {error && <p className="text-danger">{error.message}</p>}
                 <button className="btn btn-primary" type="submit">
                   {mode === "add" ? "Thêm" : "Cập nhật"}
                 </button>

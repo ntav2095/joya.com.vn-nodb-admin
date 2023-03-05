@@ -4,6 +4,8 @@ import ItineraryForm from "../ItineraryForm";
 import Destinations from "./Destinations";
 import TourRating from "./TourRating";
 import TourImages from "./TourImages";
+import StartAt from "./StartAt";
+import DepartureDates from "./DepartureDates";
 
 function Vietnamese({ formik, destinations }) {
   let eu_countries =
@@ -20,7 +22,7 @@ function Vietnamese({ formik, destinations }) {
     <Tabs defaultActiveKey="overview" className=" mb-0 border-0 ">
       <Tab eventKey="overview" title="Tổng quan">
         <div className=" rounded-0">
-          <div className="row">
+          <div className="row mb-4">
             <div className="col-12 col-sm-4">
               <FormGroup
                 isRequired
@@ -40,37 +42,51 @@ function Vietnamese({ formik, destinations }) {
             </div>
           </div>
 
-          <FormGroup
-            isRequired
-            label="Lộ trình"
-            component="textarea"
-            name="journey"
-          />
+          <div className="mb-4">
+            <FormGroup
+              isRequired
+              label="Lộ trình"
+              component="textarea"
+              name="journey"
+            />
+          </div>
 
-          <FormGroup
-            isRequired
-            label="Mô tả"
-            component="textarea"
-            name="description"
-          />
+          <div className="mb-4">
+            <FormGroup
+              isRequired
+              label="Mô tả"
+              component="textarea"
+              name="description"
+            />
+          </div>
 
-          <FormGroup
-            isRequired
-            label="Điểm nổi bật"
-            type="editor"
-            name="highlights"
-            formik={formik}
-          />
+          <div className="mb-4">
+            <FormGroup
+              isRequired
+              label="Điểm nổi bật"
+              type="editor"
+              name="highlights"
+              formik={formik}
+            />
+          </div>
 
-          <FormGroup
-            isRequired
-            label="Ngày khởi hành"
-            name="departure_dates"
-            type="departureDates"
-            formik={formik}
-          />
+          <div className="mb-4">
+            <StartAt
+              isRequired
+              label="Điểm khởi hành"
+              name="start_at"
+              type="start_at"
+              formik={formik}
+              places={vn_provinces}
+            />
+          </div>
 
-          <div className="row">
+          {/* ----------------------- Ngày khởi hành ------------------------  */}
+          <div className="mb-4">
+            <DepartureDates formik={formik} />
+          </div>
+
+          <div className="row mb-4">
             <div className="col-4">
               <FormGroup
                 isRequired
@@ -105,63 +121,77 @@ function Vietnamese({ formik, destinations }) {
 
       {/* ----------------------- price policies ------------------------  */}
       <Tab eventKey="price" title="Bảng giá">
-        <FormGroup
-          isRequired
-          label="Giá bao gồm"
-          name="price_policies.includes"
-          type="editor"
-          formik={formik}
-        />
+        <div className="mb-4">
+          <FormGroup
+            isRequired
+            label="Giá bao gồm"
+            name="price_policies.includes"
+            type="editor"
+            formik={formik}
+          />
+        </div>
 
-        <FormGroup
-          isRequired
-          label="Giá không bao gồm"
-          name="price_policies.excludes"
-          type="editor"
-          formik={formik}
-        />
+        <div className="mb-4">
+          <FormGroup
+            isRequired
+            label="Giá không bao gồm"
+            name="price_policies.excludes"
+            type="editor"
+            formik={formik}
+          />
+        </div>
 
-        <FormGroup
-          isRequired
-          label="Giá trẻ em và phụ thu"
-          name="price_policies.other"
-          type="editor"
-          formik={formik}
-        />
+        <div className="mb-4">
+          <FormGroup
+            isRequired
+            label="Giá trẻ em và phụ thu"
+            name="price_policies.other"
+            type="editor"
+            formik={formik}
+          />
+        </div>
       </Tab>
 
       {/* ----------------------- terms ------------------------  */}
       <Tab eventKey="terms" title="Điều khoản">
-        <FormGroup
-          isRequired
-          label="Điều kiện đăng ký"
-          name="terms.registration"
-          type="editor"
-          formik={formik}
-        />
+        <div className="mb-4">
+          <FormGroup
+            isRequired
+            label="Điều kiện đăng ký"
+            name="terms.registration"
+            type="editor"
+            formik={formik}
+          />
+        </div>
 
-        <FormGroup
-          isRequired
-          label="Điều kiện hoàn hủy"
-          name="terms.cancellation"
-          type="editor"
-          formik={formik}
-        />
+        <div className="mb-4">
+          <FormGroup
+            isRequired
+            label="Điều kiện hoàn hủy"
+            name="terms.cancellation"
+            type="editor"
+            formik={formik}
+          />
+        </div>
 
-        <FormGroup
-          isRequired
-          label="Phương thức thanh toán"
-          name="terms.payment"
-          type="editor"
-          formik={formik}
-        />
+        <div className="mb-4">
+          <FormGroup
+            isRequired
+            label="Phương thức thanh toán"
+            name="terms.payment"
+            type="editor"
+            formik={formik}
+          />
+        </div>
 
-        <FormGroup
-          label="Lưu ý"
-          name="terms.notes"
-          type="editor"
-          formik={formik}
-        />
+        <div className="mb-4">
+          <FormGroup
+            label="Lưu ý"
+            name="terms.notes"
+            type="editor"
+            formik={formik}
+          />
+        </div>
       </Tab>
 
       {/* ----------------------- điểm đến ------------------------  */}
@@ -197,7 +227,7 @@ function Vietnamese({ formik, destinations }) {
 
       {/* ----------------------- hình ảnh: thumbnail, banner, lộ trình ------------------------  */}
       <Tab eventKey="images" title="Hình ảnh">
-        <div className="border-bottom row">
+        <div className="border-bottom row pb-4">
           <div className="col-6">
             <FormGroup
               isRequired

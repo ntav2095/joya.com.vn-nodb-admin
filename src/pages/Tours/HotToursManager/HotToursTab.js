@@ -29,15 +29,21 @@ function HotToursTab({ title, addTour, removeTour, remainTours, chosenTours }) {
       </form>
 
       <div className="col-6">
-        <h5>Tour còn lại</h5>
+        <h6>Tour còn lại</h6>
 
-        {remainTours.length === 0 && <h6>Hết tour</h6>}
+        {remainTours.length === 0 && (
+          <p>
+            <i>Không có tour nào</i>
+          </p>
+        )}
         {remainTours.length > 0 && filteredTours.length === 0 && (
-          <h6>Không có kết quả phù hợp</h6>
+          <p>
+            <i>Không có kết quả phù hợp</i>
+          </p>
         )}
 
         {filteredTours.length > 0 && (
-          <ul className={styles.tourList + " list-group mt-2"}>
+          <ul className={styles.tourList + " list-group mt-2 border p-2"}>
             {filteredTours.map((tour) => (
               <li
                 className="list-group-item"
@@ -51,9 +57,9 @@ function HotToursTab({ title, addTour, removeTour, remainTours, chosenTours }) {
         )}
       </div>
 
-      <div className="col-6">
-        <h5>Tour đã chọn</h5>
-        <ul className={styles.tourList + " list-group mt-2"}>
+      <div className={styles.chosenTours + " col-6"}>
+        <h6>Tour đã chọn</h6>
+        <ul className={styles.tourList + " list-group mt-2 border p-2"}>
           {chosenTours.map((tour) => (
             <li
               className="list-group-item"
@@ -63,6 +69,12 @@ function HotToursTab({ title, addTour, removeTour, remainTours, chosenTours }) {
               {tour.name} [{tour.code}]
             </li>
           ))}
+
+          {chosenTours.length === 0 && (
+            <p>
+              <i>Chưa chọn tour nào</i>
+            </p>
+          )}
         </ul>
       </div>
     </div>

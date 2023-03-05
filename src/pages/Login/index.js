@@ -47,9 +47,9 @@ function Login() {
 
   useEffect(() => {
     if (data) {
-      dispatch(setUser(data.user));
-      localStorage.setItem("accessToken", data.accessToken);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      dispatch(setUser(data.data));
+      localStorage.setItem("accessToken", data.metadata.accessToken);
+      localStorage.setItem("user", JSON.stringify(data.data));
     }
   }, [data]);
 

@@ -47,23 +47,6 @@ function ItineraryForm({ language, formik, itinerary, name }) {
   // khi xóa 1 ngày ở tiếng Việt thì xóa ngày tương ứng trong bản en
   const removeHandler = (id) => {
     if (window.confirm("Bạn có chắc muốn xóa ngày này không?")) {
-      // setFieldValue(
-      //   "itinerary",
-      //   values.itinerary.filter((item) => item.id !== id),
-      //   false
-      // );
-
-      // setFieldValue(
-      //   "translation",
-      //   values.translation.map((trans) => {
-      //     return {
-      //       ...trans,
-      //       itinerary: trans.itinerary.filter((item) => item.id !== id),
-      //     };
-      //   }),
-      //   false
-      // );
-
       setValues({
         ...values,
         itinerary: values.itinerary.filter((item) => item.id !== id),
@@ -131,10 +114,9 @@ function ItineraryForm({ language, formik, itinerary, name }) {
     </div>
   );
 
-  const isVnTour = !name.startsWith("translation");
   return (
     <div className={styles.container + " pb-5"}>
-      {isVnTour && actionButtons}
+      {name === "itinerary" && actionButtons}
 
       <div className={styles.plan + " updateItinerary__accordion pb-4"}>
         {itinerary.length > 0 && (
@@ -230,7 +212,7 @@ function ItineraryForm({ language, formik, itinerary, name }) {
         {itinerary.length === 0 && <h6>Chưa có lộ trình</h6>}
       </div>
 
-      {itinerary.length > 0 && isVnTour && actionButtons}
+      {itinerary.length > 0 && name === "itinerary" && actionButtons}
     </div>
   );
 }

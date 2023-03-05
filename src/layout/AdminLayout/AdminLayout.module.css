@@ -30,9 +30,8 @@
 }
 
 .userInfo svg {
-  width: 30%;
   color: #1e8553;
-  min-width: 36px;
+  width: 30px;
 }
 
 .sidebar ul {
@@ -44,7 +43,9 @@
 }
 
 .nav a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 6px;
   padding: 6px 0;
   padding-left: 8px;
@@ -71,7 +72,7 @@
 }
 
 .nav a svg {
-  width: 30px;
+  width: 20px;
 }
 
 /* ================ log out ====================  */

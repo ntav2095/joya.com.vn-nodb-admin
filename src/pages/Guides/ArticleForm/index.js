@@ -55,6 +55,8 @@ const validator = (values) => {
     errors.en = enErrors;
   }
 
+  return {};
+
   return errors;
 };
 

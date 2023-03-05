@@ -29,10 +29,10 @@ export function isValidDate(date, month, year) {
   return true;
 }
 
-// ddMMyyyy => [error, timestamp]
+// ddMMyy => [error, timestamp]
 export const stringToDate = (dateString) => {
   let val = dateString.trim();
-  if (!(val.length === 6 || val.length === 8)) {
+  if (val.length !== 6) {
     return [new Error("Ngày không hợp lệ"), null];
   }
 
@@ -40,11 +40,7 @@ export const stringToDate = (dateString) => {
 
   d = val.slice(0, 2);
   m = val.slice(2, 4);
-  y = val.slice(4);
-
-  if (val.length === 6) {
-    y = "20" + y;
-  }
+  y = "20" + val.slice(4);
 
   if (!isValidDate(d, m, y)) {
     return [new Error("Ngày không hợp lệ"), null];

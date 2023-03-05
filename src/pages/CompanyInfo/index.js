@@ -142,7 +142,7 @@ function CompanyInfo() {
     <>
       <NotifyModal {...notify} />
       <AdminLayout>
-        <TopBar title="Thông tin công ty">
+        <TopBar title="Thông tin liên hệ công ty">
           <button onClick={submitTrigger} className="btn btn-primary">
             Lưu
           </button>

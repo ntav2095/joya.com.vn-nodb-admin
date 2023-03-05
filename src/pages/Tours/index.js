@@ -1,6 +1,5 @@
 import {
   // main
-  useEffect,
   useState,
   Link,
   useNavigate,
@@ -15,11 +14,8 @@ import {
   // other
   PAGE_SIZE,
   usePageTitle,
-  // fetchTours,
-  deleteTour,
   useAxios,
   toursFilter,
-  styles,
 } from "./Tours.import";
 import { Navigate, useParams } from "react-router-dom";
 
@@ -28,19 +24,23 @@ import TopBar from "../../components/TopBar";
 import "./Tours.override.css";
 import CustomPagination from "../../containers/customerPagination";
 import TourList from "./TourList";
-import { fetchTours, removeTour, selectTours } from "../../store/tours.slice";
+import {
+  selectTours,
+  deleteTour,
+  resetToursState,
+} from "../../store/tours.slice";
 import { useDispatch, useSelector } from "react-redux";
 
 function Tours() {
-  // const [sendRequest, isLoading, data, error] = useAxios();
-  const [goDelete, isDeleting, deleted, deletingError, deletingReset] =
-    useAxios();
   const [confirmDelete, setConfirmDelete] = useState(null); // null | tourCode
+  const { tours, status, error } = useSelector(selectTours);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { tours, status, error } = useSelector(selectTours);
+
   const isLoading =
-    status.fetchTours === "idle" || status.fetchTours === "pending";
+    status.fetchTours === "idle" ||
+    status.fetchTours === "pending" ||
+    status.deleteTour === "pending";
 
   const params = new URL(document.location).searchParams;
   let { page, category } = useParams();
@@ -52,44 +52,38 @@ function Tours() {
 
   const search = params.get("search") || "";
 
-  useEffect(() => {
-    if (deleted) {
-      dispatch(removeTour(deleted.data.code));
-    }
-  }, [deleted]);
-
   // notifications
   let notify = {};
-  if (deleted) {
+  if (status.deleteTour === "succeeded") {
     notify = {
       type: "success",
       message: "Xóa thành công",
       btn: {
         text: "OK",
         cb: () => {
-          deletingReset();
+          dispatch(resetToursState("deleteTour"));
         },
         component: "button",
       },
-      show: deleted,
+      show: status.deleteTour === "succeeded",
     };
   }
 
-  if (deletingError) {
+  if (error.deleteTour) {
     notify = {
       type: "error",
-      message: deletingError.message,
+      message: error.deleteTour.message,
       btn: {
         text: "OK",
         cb: () => {
-          deletingReset();
+          dispatch(resetToursState("deleteTour"));
         },
         component: "button",
       },
       onHide: () => {
-        deletingReset();
+        dispatch(resetToursState("deleteTour"));
       },
-      show: Boolean(deletingError),
+      show: Boolean(error.deleteTour),
     };
   }
 
@@ -100,7 +94,7 @@ function Tours() {
       leftBtn: {
         text: "Có",
         cb: () => {
-          goDelete(deleteTour(confirmDelete));
+          dispatch(deleteTour(confirmDelete));
           setConfirmDelete(null);
         },
         component: "button",
@@ -148,7 +142,6 @@ function Tours() {
         path += `/${current}`;
       }
     }
-    console.log(current);
 
     if (search) {
       path += `?search=${search}`;
@@ -160,8 +153,7 @@ function Tours() {
   usePageTitle("Quản lý tour | Joya Travel");
 
   if (
-    (category &&
-      !["chau-au", "viet-nam", "thieu-hinh-anh"].includes(category.trim())) ||
+    (category && !["chau-au", "viet-nam"].includes(category.trim())) ||
     !page ||
     isNaN(page) ||
     !Number.isInteger(page) ||
@@ -172,11 +164,10 @@ function Tours() {
   return (
     <>
       <NotifyModal {...notify} />
-      <SpinnerModal show={isLoading || isDeleting} />
+      <SpinnerModal show={isLoading} />
 
       <AdminLayout>
         <TopBar title="Quản lý tour">
-          <button className="btn btn-primary me-2 disabled">Import</button>
           <Link to="/tours/them-moi" className="btn btn-primary me-2">
             Tạo tour mới
           </Link>
